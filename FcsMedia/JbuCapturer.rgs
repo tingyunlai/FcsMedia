@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {811DF04E-488E-4818-BA3F-644F78577020} = s 'JbuCapturer Class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{9E5E3D4C-E209-432D-93EB-D63FC5736AEC}'
+			Version = s '1.0'
+		}
+	}
+}

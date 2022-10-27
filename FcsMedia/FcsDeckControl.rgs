@@ -1,0 +1,27 @@
+HKCR
+{
+	FcsMedia.FcsDeckControl.1 = s 'FcsDeckControl Class'
+	{
+		CLSID = s '{03276B5B-7E36-43AC-B770-2D6776E34505}'
+	}
+	FcsMedia.FcsDeckControl = s 'FcsDeckControl Class'
+	{
+		CLSID = s '{03276B5B-7E36-43AC-B770-2D6776E34505}'
+		CurVer = s 'FcsMedia.FcsDeckControl.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {03276B5B-7E36-43AC-B770-2D6776E34505} = s 'FcsDeckControl Class'
+		{
+			ProgID = s 'FcsMedia.FcsDeckControl.1'
+			VersionIndependentProgID = s 'FcsMedia.FcsDeckControl'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{9E5E3D4C-E209-432D-93EB-D63FC5736AEC}'
+		}
+	}
+}

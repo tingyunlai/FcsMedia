@@ -1,0 +1,519 @@
+// FcsMedia.idl : IDL source for FcsMedia
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (FcsMedia.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+import "decklinkapi.idl";
+import "Amux.idl";
+import "FcsOverlay.idl";
+[
+	object,
+	uuid(E892566C-C55A-4B82-9899-AAD41ED40B76),
+	dual,
+	nonextensible,
+	helpstring("IFcsPlayer Interface"),
+	pointer_default(unique)
+]
+interface IFcsPlayer : IDispatch {
+	[id(1), helpstring("method SetWindow")] HRESULT SetWindow(HWND hWnd);
+	[id(2), helpstring("method SetEventWindow")] HRESULT SetEventWindow(HWND hwnd, UINT msg);
+	[id(3), helpstring("method State")] HRESULT State(UINT* state);
+	[id(4), helpstring("method OpenFile")] HRESULT OpenFile(const WCHAR* sFileName);
+	[id(5), helpstring("method GetVideoSize")] HRESULT GetVideoSize(long* lpWidth, long* lpHeight, long* lpARWidth, long* lpARHeight);
+	[id(6), helpstring("method Play")] HRESULT Play(void);
+	[id(7), helpstring("method Pause")] HRESULT Pause(void);
+	[id(8), helpstring("method Stop")] HRESULT Stop(void);
+	[id(9), helpstring("method SetRate")] HRESULT SetRate(double dSpeed);
+	[id(10), helpstring("method GetTMFormat")] HRESULT GetTMFormat(GUID* tmFormat);
+	[id(11), helpstring("method HasVideo")] HRESULT HasVideo(BOOL* bHasVideo);
+	[id(12), helpstring("method UpdateVideoWindow")] HRESULT UpdateVideoWindow(const LPRECT prc);
+	[id(13), helpstring("method Repaint")] HRESULT Repaint(HDC hdc);
+	[id(14), helpstring("method DisplayModeChanged")] HRESULT DisplayModeChanged(void);
+	[id(15), helpstring("method CanSeek")] HRESULT CanSeek(BOOL* bCanSeek);
+	[id(16), helpstring("method SetPosition")] HRESULT SetPosition(LONGLONG pos);
+	[id(17), helpstring("method GetDuration")] HRESULT GetDuration(LONGLONG* pDuration);
+	[id(18), helpstring("method GetCurrentPosition")] HRESULT GetCurrentPosition(LONGLONG* pTimeNow);
+	[id(19), helpstring("method Mute")] HRESULT Mute(BOOL bMute);
+	[id(20), helpstring("method IsMuted")] HRESULT IsMuted(BOOL* bMuted);
+	[id(21), helpstring("method SetVolume")] HRESULT SetVolume(long lVolume);
+	[id(22), helpstring("method GetVolume")] HRESULT GetVolume(long* lVolume);
+	[id(23), helpstring("method ReFresh")] HRESULT ReFresh(void);
+	//给媒资的接口
+	[id(24), helpstring("method SetVideoWindow")] HRESULT SetVideoWindow(long hParent);
+	[id(25), helpstring("method MP_GetPosition")] HRESULT MP_GetPosition(long* nIndex);
+	[id(26), helpstring("method MP_Pause")] HRESULT MP_Pause(void);
+	[id(27), helpstring("method MP_Stop")] HRESULT MP_Stop(void);
+	[id(28), helpstring("method MP_Seek")] HRESULT MP_Seek(long nIndex);
+	[id(29), helpstring("method MP_Run")] HRESULT MP_Run(void);
+	[id(30), helpstring("method MP_Initial")] HRESULT MP_Initial(void);
+	[id(31), helpstring("method MP_Free")] HRESULT MP_Free(void);
+	[id(32), helpstring("method MP_SetFile")] HRESULT MP_SetFile(BSTR strFile);
+	[id(33), helpstring("method MP_SetWindow")] HRESULT MP_SetWindow(long hParent, long x, long y, long nWidth, long nHeight);
+	[id(34), helpstring("method SetOption")] HRESULT SetOption(long nOption);
+	[id(35), helpstring("method MP_Render")] HRESULT MP_Render(void);
+	[id(36), helpstring("method MP_GetLength")] HRESULT MP_GetLength(long* nLength);
+	[id(37), helpstring("method MP_SetWndPosition")] HRESULT MP_SetWndPosition(long x, long y, long nWidth, long nHeight);
+	[id(38), helpstring("method GetAudio")] HRESULT GetAudio(long nIndex, long* nOption);
+	[id(39), helpstring("method InitOnlyRawControl")] HRESULT InitOnlyRawControl(void);
+	[id(40), helpstring("method MP_SaveBmpToFile")] HRESULT MP_SaveBmpToFile(BSTR strFileName, long nWidth, long nHeight);
+	[id(41), helpstring("method MP_UpdateVideoWindow")] HRESULT MP_UpdateVideoWindow(long left, long top, long right, long bottom);
+
+	[id(42), helpstring("method Open")] HRESULT Open(BSTR sFileName, long nFormat, long nOption);
+	[propget, id(43), helpstring("property Fcs_Media_State")] HRESULT Fcs_Media_State(LONG FCS_STATE_RUNNING, [out, retval] LONG* pVal);
+	[propput, id(43), helpstring("property Fcs_Media_State")] HRESULT Fcs_Media_State(LONG FCS_STATE_RUNNING, [in] LONG newVal);
+	[id(44), helpstring("method OpenP2Mxf")] HRESULT OpenP2Mxf(const WCHAR* szPathName);
+	[id(45), helpstring("method OpenSonyMxf")] HRESULT OpenSonyMxf(const WCHAR* szPathName);
+	[id(46), helpstring("method OpenAvi")] HRESULT OpenAvi(const WCHAR* szPathName);
+	[id(47), helpstring("method OpenWmv")] HRESULT OpenWmv(const WCHAR* szPathName);
+	[id(48), helpstring("method OpenMpeg2")] HRESULT OpenMpeg2(const WCHAR* szPathName);
+	[id(49), helpstring("method Save")] HRESULT Save(const WCHAR* szTargetName, int nTargetFormat, int nOption);
+	[id(50), helpstring("method OpenMpeg4")] HRESULT OpenMpeg4(const WCHAR* szpathName);
+	[id(51), helpstring("method Save2Avi")] HRESULT Save2Avi(const WCHAR* szTargetName, int nOption);
+	[id(52), helpstring("method Save2Mpeg2")] HRESULT Save2Mpeg2(const WCHAR* szTargetName, int nOption);
+	[id(53), helpstring("method Save2Mpeg4")] HRESULT Save2Mpeg4(const WCHAR* szTargetName, int nOption);
+	[id(54), helpstring("method Save2P2Mxf")] HRESULT Save2P2Mxf(const WCHAR* szTargetName, int nOption);
+	[id(55), helpstring("method Save2SonyMxf")] HRESULT Save2SonyMxf(const WCHAR* szTargetName, int nOption);
+	[id(56), helpstring("method Save2Wmv")] HRESULT Save2Wmv(const WCHAR* szTargetName, int nOption);
+	[id(57), helpstring("method SetKeyFramePath")] HRESULT SetKeyFramePath(const WCHAR* szPathName);
+	//[id(58), helpstring("method SetKeyFrameBasicParas")] HRESULT SetKeyFrameBasicParas(long pBasicParams);
+	[id(59), helpstring("method SetTMFormat")] HRESULT SetTMFormat(long tmFormat);     // 0:unit by frame, 1:unit by time (ms)
+	[id(60), helpstring("method Avi2Wmv")] HRESULT Avi2Wmv(const WCHAR* szSrcName, const WCHAR* szDestName, int nOption);
+	[id(61), helpstring("method SetKeyFrameBasicParams")] HRESULT SetKeyFrameBasicParams(long nWidth, long nHeight, BOOL bOcr, long nOcrY1, long nOcrY2, BSTR szExportPath);
+	[id(62), helpstring("method GetEvent")] HRESULT GetEvent(long* iEvent, long* L1, long* L2);
+	[id(63), helpstring("method SetGraphPath")] HRESULT SetGraphPath(BSTR bstrGraphPath);
+	[id(64), helpstring("method GetBitRate")] HRESULT GetBitRate(long* nBitRate);
+	[id(65), helpstring("method GetAudioLevel")] HRESULT GetAudioLevel(long nChannel, long* nVolume);
+	[id(66), helpstring("method GetP2AudioCount")] HRESULT GetP2AudioCount(long* nCount);
+	[id(67), helpstring("method GetP2VideoName")] HRESULT GetP2VideoName(BSTR bstrVideoName);
+	[id(68), helpstring("method GetP2AudioName")] HRESULT GetP2AudioName(long nIndex, BSTR* bstrAudioName);
+	[id(69), helpstring("method SetP2AudioName")] HRESULT SetP2AudioName(BSTR bstrAudioName);
+	[id(70), helpstring("method RenderP2")] HRESULT RenderP2(void);
+	[id(71), helpstring("method Free")] HRESULT Free(void);
+	[id(72), helpstring("method snapImage")] HRESULT snapImage(long nIndex, BSTR bstrImagename);
+	[id(73), helpstring("method ChangeWindow")] HRESULT ChangeWindow(long hWndHandle);
+	[id(74), helpstring("method ChangeHWnd")] HRESULT ChangeHWnd(HWND hWnd);
+	[id(75), helpstring("method LoadRun")] HRESULT LoadRun(BSTR bstrGrfName);
+
+	[id(76), helpstring("method SetTemplateID")] HRESULT SetTemplateID(long nTemplateID);
+	[id(77), helpstring("method SetSourceFile")] HRESULT SetSourceFile(BSTR bstrSourceName);
+	[id(78), helpstring("method WaitForCompletion")] HRESULT WaitForCompletion(long nTimeOut, long* pEvCode);
+
+	[id(79), helpstring("method AddOverlay")] HRESULT AddOverlay(BSTR BstrOverlay, long nLeft, long nTop, long nRight, long nBottom, long nScaleToFit);
+	[id(80)] HRESULT GetCurrentTimeString(BSTR* bstrTime);
+	[id(81)] HRESULT SetFullScreen(LONG mode);
+	[id(82)] HRESULT GetTcCode(LONGLONG timeNow, BSTR* bstrTime);
+	[id(83)] HRESULT FrameToRefTime(LONG nFrame, LONGLONG* refTime);
+	[id(84)] HRESULT GetVideoInfo(LONG* nWidth, LONG* nHeight, DOUBLE* dFps);
+	[id(85)] HRESULT SetSegment(LONG nStart, LONG nEnd);
+
+
+	[id(86)] HRESULT SetSegmentByMs(LONGLONG timeBegin, LONGLONG timeEnd);
+	[id(87)] HRESULT GetFaceRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(88)] HRESULT GetFaceImg(BYTE* pImage, LONG nSize);
+	[id(89)] HRESULT GetFaceWidth(LONG* nWidth);
+	[id(90)] HRESULT GetFaceHeight(LONG* nHeight);
+	[id(91)] HRESULT GetLeadFace(BYTE* pLeadFace);
+	[id(92)] HRESULT GetLEyeRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(93)] HRESULT GetREyeRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(94)] HRESULT GetLEyeImg(BYTE* pImage, LONG nSize);
+	[id(95)] HRESULT GetREyeImg(BYTE* pImage, LONG nSize);
+	[id(96)] HRESULT GetLEyeballRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(97)] HRESULT GetREyeballRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(98)] HRESULT GetLEyeballImg(BYTE* pImage, LONG nSize);
+	[id(99)] HRESULT GetREyeballImg(BYTE* pImage, LONG nSize);
+	[id(100)] HRESULT GetActivativedValue(DOUBLE* dActivation);
+	[id(101)] HRESULT GetBlinkCount(LONG* nCount);
+	[id(102)] HRESULT GetCurTimeMs(LONG* MilliSec);
+	[id(103)] HRESULT GetCurTime(LONGLONG* NSec);
+	[id(104)] HRESULT ResetCounter(void);
+	[id(105)] HRESULT SetCheck(SHORT nCheck);
+	[id(106)] HRESULT GetCheck(SHORT* nCheck);
+	[id(107)] HRESULT SetFaceRectLineWidth(FLOAT fLineWidth);
+	[id(108)] HRESULT GetFaceRectLineWidth(FLOAT* fLineWidth);
+	[id(109)] HRESULT SetEyeRectLineWidth(FLOAT fLineWidth);
+	[id(110)] HRESULT GetEyeRectLineWidth(FLOAT* fLineWidth);
+	[id(111)] HRESULT DisplayOverlay(LONG nID, SHORT IsVisible);
+	[id(112)] HRESULT GetCountOfArray(void);
+	[id(113)] HRESULT SetOverlayPosition(LONG nID, LONG nLeft, LONG nTop, LONG nRight, LONG nButtom);
+	[id(114)] HRESULT SetOverlayColor(LONG nID, COLORREF nColor);
+	[id(115)] HRESULT SetOverlayFontSize(LONG nID, LONG nFontSize);
+	[id(116)] HRESULT SetOverlayFont(LONG nID, LONG nFontStyle, SHORT bUnderLine, SHORT bWrap, SHORT bVertical, SHORT bRightAlign);
+	[id(117)] HRESULT SetOverlayText(LONG nID, BSTR szText);
+	[id(118)] HRESULT SetOverlayFontName(LONG nID, BSTR szFontName);
+	[id(119)] HRESULT SetOverlayImgPosition(BSTR szImgName, LONG nLeft, LONG nTop, LONG nRight, LONG nButtom, SHORT bDisplay, SHORT bScaleFit, LONG nTranspency);
+	[id(120)] HRESULT SetFps(DOUBLE dFps);
+	[id(121)] HRESULT GetFps(DOUBLE* dFps);
+	[id(122)] HRESULT GetRate(DOUBLE* pRate);
+};
+[
+	object,
+	uuid(10A84D63-730E-4F91-819B-9190EC57CBDC),
+	dual,
+	nonextensible,
+	helpstring("IExportManager Interface"),
+	pointer_default(unique)
+]
+interface IExportManager : IDispatch {
+	[id(2), helpstring("method SetEventWindow")] HRESULT SetEventWindow(HWND hWnd, UINT msg);
+	[id(3), helpstring("method Run")] HRESULT Run(void);
+	[id(5), helpstring("method TC_SetWindow")] HRESULT TC_SetWindow(long hParent);
+	[id(6), helpstring("method TC_SetSourceFile")] HRESULT TC_SetSourceFile(BSTR szSourceName, long nFormat, long nSeg, long nStart, long nEnd);
+	[id(7), helpstring("method TC_SetSinkFile")] HRESULT TC_SetSinkFile(BSTR szSinkName, long nFormat);
+	[id(8), helpstring("method TC_GetLength")] HRESULT TC_GetLength(LONG* nLength);
+	[id(9), helpstring("method TC_Run")] HRESULT TC_Run(void);
+	[id(10), helpstring("method TC_GetPosition")] HRESULT TC_GetPosition(LONG* iPos);
+	[id(11), helpstring("method TC_Stop")] HRESULT TC_Stop(void);
+	[id(12), helpstring("method GetEvent")] HRESULT GetEvent(long* iEvent, long* L1, long* L2);
+	[id(13), helpstring("method TC_ShowConfig")] HRESULT TC_ShowConfig(void);
+	[id(14), helpstring("method TC_Init")] HRESULT TC_Init(void);
+	[id(15), helpstring("method TC_Render")] HRESULT TC_Render(void);
+	[id(16), helpstring("method TC_Free")] HRESULT TC_Free(void);
+	[id(17), helpstring("method SetWindow")] HRESULT SetWindow(HWND hWnd);
+	[id(18), helpstring("method KF_KeyFrame")] HRESULT KF_KeyFrame(BSTR bstrVideoName);
+	[id(19), helpstring("method SetKeyFrameBasicParams")] HRESULT SetKeyFrameBasicParams(long nWidth, long nHeight, BOOL bOcr, long nOcrY1, long nOcrY2, BSTR szExportPath);
+
+	[id(20), helpstring("method SaveKFInfo")] HRESULT SaveKFInfo(void);
+	[id(21), helpstring("method SetGraphPath")] HRESULT SetGraphPath(BSTR bstrGraphPath);
+	[id(22), helpstring("method Save")] HRESULT Save(void);
+	[id(23), helpstring("method State")] HRESULT State(UINT* state);
+	[id(24), helpstring("method CanSeek")] HRESULT CanSeek(BOOL* bCanSeek);
+
+	[id(25), helpstring("method Pause")] HRESULT Pause(void);
+	[id(26), helpstring("method TC_Seek")] HRESULT TC_Seek(long iPos);
+	[id(27), helpstring("method GetP2AudioCount")] HRESULT GetP2AudioCount(long* nCount);
+	[id(28), helpstring("method GetP2VideoName")] HRESULT GetP2VideoName(BSTR bstrVideoName);
+	[id(29), helpstring("method GetP2AudioName")] HRESULT GetP2AudioName(long nIndex, BSTR* bstrAudioName);
+	[id(30), helpstring("method SetP2AudioName")] HRESULT SetP2AudioName(BSTR bstrAudioName);
+	[id(31), helpstring("method SetRange")] HRESULT SetRange(long nBeginFrame, long nEndFrame, long nSeg);
+	[id(32), helpstring("method LoadRun")] HRESULT LoadRun(BSTR bstrGrfName);
+	[id(33), helpstring("method ChangeWindow")] HRESULT ChangeWindow(long hWndHandle);
+	[id(34), helpstring("method ChangeHWnd")] HRESULT ChangeHWnd(HWND hWnd);
+	[id(35), helpstring("method GetDuration")] HRESULT GetDuration(LONGLONG* nDuration);
+
+	[id(36), helpstring("method WaitForCompletion")] HRESULT WaitForCompletion(long nTimeOut, long* pEvCode);
+	[id(37), helpstring("method PackAvi")] HRESULT PackAvi(BSTR bstrVideo, BSTR bstrAudio1, BSTR bstrAudio2, BSTR bstrAudio3, BSTR bstrOutAvi);
+};
+[
+	object,
+	uuid(58BB1EDE-A0AA-48C2-B528-7EEDB826CD95),
+	dual,
+	nonextensible,
+	helpstring("IFcsGrabber Interface"),
+	pointer_default(unique)
+]
+interface IFcsGrabber : IDispatch {
+	[id(1), helpstring("method SetWindow")] HRESULT SetWindow(long hParent);
+	[id(2), helpstring("method Pause")] HRESULT Pause(void);
+	[id(3), helpstring("method Stop")] HRESULT Stop(void);
+	[id(4), helpstring("method GetPosition")] HRESULT GetPosition(long* iPos);
+	[id(5), helpstring("method Seek")] HRESULT Seek(long iPos);
+	[id(6), helpstring("method Run")] HRESULT Run(void);
+	[id(7), helpstring("method SetWindowPosition")] HRESULT SetWindowPosition(long top, long left, long Width, long Height);
+	[id(8), helpstring("method Free")] HRESULT Free(void);
+	[id(9), helpstring("method Init")] HRESULT Init(void);
+	[id(10), helpstring("method SetFile")] HRESULT SetFile(BSTR szPathName);
+	[id(11), helpstring("method Render")] HRESULT Render(void);
+	[id(12), helpstring("method GetLength")] HRESULT GetLength(long* nLength);
+	[id(13), helpstring("method SetOption")] HRESULT SetOption(long nOption);
+	[id(14), helpstring("method GetAudio")] HRESULT GetAudio(long nChannelID, long* nVolume);
+	[id(15), helpstring("method SetPosition")] HRESULT SetPosition(LONGLONG pos);
+	[id(16), helpstring("method SetGraphPath")] HRESULT SetGraphPath(BSTR bstrGraphPath);
+	[id(17), helpstring("method SetSinkFile")] HRESULT SetSinkFile(BSTR bstrPathName, BSTR bstrPathName1, long nTemplateID, long nFileNo);
+	[id(18), helpstring("method SetHWnd")] HRESULT SetHWnd(HWND hWnd);
+	[id(19), helpstring("method UpdateVideoWindow")] HRESULT UpdateVideoWindow(const LPRECT prc);
+	[id(20), helpstring("method GetVideoSize")] HRESULT GetVideoSize(long* lpWidth, long* lpHeight, long* lpARWidth, long* lpARHeight);
+	[id(21), helpstring("method Repaint")] HRESULT Repaint(HDC hdc);
+	[id(22), helpstring("method Record")] HRESULT Record(void);
+	[id(23), helpstring("method UpdateWindow")] HRESULT UpdateWindow(long left, long top, long right, long bottom);
+	[id(24), helpstring("method State")] HRESULT State(long* nState);
+	[id(25), helpstring("method GetAudioLevel")] HRESULT GetAudioLevel(long nChannel, long* nVolume);
+	[id(26), helpstring("method SetKeyFrameBasicParams")] HRESULT SetKeyFrameBasicParams(long nWidth, long nHeight, BOOL bOcr, long nOcrY1, long nOcrY2, BSTR szExportPath);
+	[id(27), helpstring("method SaveKFInfo")] HRESULT SaveKFInfo(void);
+	[id(28), helpstring("method ChangeWindow")] HRESULT ChangeWindow(long hWndHandle);
+	[id(29), helpstring("method ChangeHWnd")] HRESULT ChangeHWnd(HWND hWnd);
+	[id(30), helpstring("method GetGraphPath")] HRESULT GetGraphPath(BSTR* strGraphPath);
+	[id(31), helpstring("method IsMute")] HRESULT IsMute(SHORT* bMute);
+	[id(32), helpstring("method GetVideoFps")] HRESULT GetVideoFps(DOUBLE* dFps);
+	[id(33), helpstring("method SetFullScreen")] HRESULT SetFullScreen(SHORT* nResult, SHORT nState);
+	[id(34), helpstring("method SnapImage")] HRESULT SnapImage(BSTR bstrImagename, LONG nNewWidth, LONG nNewHeight);
+	[id(35)] HRESULT MP_GetPosition(LONG* nIndex);
+	[id(36)] HRESULT GetCurrentPosition(LONGLONG* pTimeNow);
+	[id(37)] HRESULT GetFaceRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(38)] HRESULT GetFaceWidth(LONG* nWidth);
+	[id(39)] HRESULT GetFaceHeight(LONG* nHeight);
+	[id(40)] HRESULT GetLEyeRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(41)] HRESULT GetREyeRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(42)] HRESULT GetLEyeballRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(43)] HRESULT GetREyeballRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(44)] HRESULT GetFaceImg(BYTE* pImage, LONG nSize);
+	[id(45)] HRESULT GetLEyeImg(BYTE* pImage, LONG nSize);
+	[id(46)] HRESULT GetREyeImg(BYTE* pImage, LONG nSize);
+	[id(47)] HRESULT GetLEyeballImg(BYTE* pImage, LONG nSize);
+	[id(48)] HRESULT GetREyeballImg(BYTE* pImage, LONG nSize);
+	[id(49)] HRESULT GetLeadFace(BYTE* pLeadFace);
+	[id(50)] HRESULT GetActivativedValue(DOUBLE* dActivation);
+	[id(51)] HRESULT GetBlinkCount(LONG* nCount);
+	[id(52)] HRESULT GetCurTimeMs(LONG* MilliSec);
+	[id(53)] HRESULT GetCurTime(LONGLONG* NSec);
+	[id(54)] HRESULT ResetCounter(void);
+	[id(55)] HRESULT SetCheck(SHORT nCheck);
+	[id(56)] HRESULT GetCheck(SHORT* nCheck);
+	[id(57)] HRESULT SetFaceRectLineWidth(FLOAT fLineWidth);
+	[id(58)] HRESULT GetFaceRectLineWidth(FLOAT* fLineWidth);
+	[id(59)] HRESULT SetEyeRectLineWidth(FLOAT fLineWidth);
+	[id(60)] HRESULT GetEyeRectLineWidth(FLOAT* fLineWidth);
+	[id(62)] HRESULT DisPlayOverlay(LONG nID, SHORT IsVisible);
+	[id(63)] HRESULT GetCountOfArray(void);
+	[id(64)] HRESULT SetOverlayPosition(LONG nId, LONG nLeft, LONG nTop, LONG nRight, LONG nBottom);
+	[id(67)] HRESULT SetOverlayColor(LONG nID, COLORREF nColor);
+	[id(68)] HRESULT SetOverlayFontSize(LONG nID, LONG nFontSize);
+	[id(70)] HRESULT SetOverlayFont(LONG nID, LONG nFontStyle, SHORT bUnderLine, SHORT bWrap, SHORT bVertical, SHORT bRightAlign);
+	[id(71)] HRESULT SetOverlayText(LONG nID, BSTR szText);
+	[id(72)] HRESULT SetOverlayFontName(LONG nID, BSTR szFontName);
+	[id(73)] HRESULT SetOverlayImgPosition(BSTR szImgName, LONG left, LONG top, LONG right, LONG bottom, SHORT bDisplay, SHORT bScaleFit, LONG nTranspency);
+	[id(74)] HRESULT EnableRoi(SHORT Enable);
+	[id(75)] HRESULT SetRoi(LONG left, LONG top, LONG right, LONG bottom);
+	[id(76)] HRESULT ShowRoi(void);
+	[id(77)] HRESULT SetRoiProp(LONG nColor, LONG PenStyle, LONG LineWidth, LONG ShapeType);
+	[id(78), helpstring("method SnapGrayImage")] HRESULT SnapGrayImage(BSTR bstrImagename, LONG nNewWidth, LONG nNewHeight);
+	[id(79), helpstring("method SetExportDir")] HRESULT SetExportDir(BSTR ExportDir);
+	[id(80), helpstring("method SetExportName")] HRESULT SetExportName(BSTR ImageName);
+	[id(81), helpstring("method SetExportImageWidth")] HRESULT SetExportImageWidth(LONG Width);
+	[id(82), helpstring("method SetExportImageHeight")] HRESULT SetExportImageHeight(LONG Height);
+	[id(83), helpstring("method SetCompressRatio")] HRESULT SetCompressRatio(LONG Ratio);
+	[id(84), helpstring("method SetCaptureFreq")] HRESULT SetCaptureFreq(LONG Freq);
+	[id(85), helpstring("method SetCaneraFps")] HRESULT SetCaneraFps(LONG FramePerSec);
+	[id(86), helpstring("method EnableCapture")] HRESULT EnableCapture(LONG Enable);
+	[id(87), helpstring("method WaitForCompletion")] HRESULT WaitForCompletion(LONG nTimeout, LONG* evtCode);
+};
+[
+	object,
+	uuid(2C683837-F99F-4A06-9089-4BC69683F123),
+	dual,
+	nonextensible,
+	helpstring("IFcsDVManager Interface"),
+	pointer_default(unique)
+]
+interface IFcsDVManager : IDispatch {
+	[id(1), helpstring("method SetWindow")] HRESULT SetWindow(long hParent);
+	[id(2), helpstring("method Pause")] HRESULT Pause(void);
+	[id(3), helpstring("method Stop")] HRESULT Stop(void);
+	[id(4), helpstring("method GetPosition")] HRESULT GetPosition(long* iPos);
+	[id(5), helpstring("method Seek")] HRESULT Seek(long iPos);
+	[id(6), helpstring("method Run")] HRESULT Run(void);
+	[id(7), helpstring("method SetWindowPosition")] HRESULT SetWindowPosition(long top, long left, long Width, long Height);
+	[id(8), helpstring("method Free")] HRESULT Free(void);
+	[id(9), helpstring("method Init")] HRESULT Init(void);
+	[id(10), helpstring("method SetFile")] HRESULT SetFile(BSTR szPathName);
+	[id(11), helpstring("method Render")] HRESULT Render(void);
+	[id(12), helpstring("method GetLength")] HRESULT GetLength(long* nLength);
+	[id(13), helpstring("method SetOption")] HRESULT SetOption(long nOption);
+	[id(14), helpstring("method GetAudio")] HRESULT GetAudio(long nChannelID, long* nVolume);
+	[id(15), helpstring("method SetPosition")] HRESULT SetPosition(LONGLONG pos);
+	[id(16), helpstring("method SetGraphPath")] HRESULT SetGraphPath(BSTR bstrGraphPath);
+	[id(17), helpstring("method SetSinkFile")] HRESULT SetSinkFile(BSTR bstrPathName, BSTR bstrPathName1, long nTemplateID, long nFileNo);
+	[id(18), helpstring("method SetHWnd")] HRESULT SetHWnd(HWND hWnd);
+	[id(19), helpstring("method UpdateVideoWindow")] HRESULT UpdateVideoWindow(const LPRECT prc);
+	[id(20), helpstring("method GetVideoSize")] HRESULT GetVideoSize(long* lpWidth, long* lpHeight, long* lpARWidth, long* lpARHeight);
+	[id(21), helpstring("method Repaint")] HRESULT Repaint(HDC hdc);
+	[id(22), helpstring("method Record")] HRESULT Record(void);
+	[id(23), helpstring("method UpdateWindow")] HRESULT UpdateWindow(long left, long top, long right, long bottom);
+	[id(24), helpstring("method State")] HRESULT State(long* nState);
+	[id(25), helpstring("method GetAudioLevel")] HRESULT GetAudioLevel(long nChannel, long* nVolume);
+	[id(26), helpstring("method SetKeyFrameBasicParams")] HRESULT SetKeyFrameBasicParams(long nWidth, long nHeight, BOOL bOcr, long nOcrY1, long nOcrY2, BSTR szExportPath);
+	[id(27), helpstring("method SaveKFInfo")] HRESULT SaveKFInfo(void);
+	[id(28), helpstring("method RemoteControl")] HRESULT RemoteControl(long nFunctionID);
+	[id(29), helpstring("method GetDVMode")] HRESULT GetDVMode(long* nDvMode);
+	[id(30), helpstring("method ChangeWindow")] HRESULT ChangeWindow(long hWndHandle);
+	[id(31), helpstring("method ChangeHWnd")] HRESULT ChangeHWnd(HWND hWnd);
+	[id(32), helpstring("method PowerOn")] HRESULT PowerOn(void);
+	[id(33), helpstring("method PowerOff")] HRESULT PowerOff(void);
+	[id(34), helpstring("method StandBy")] HRESULT StandBy(void);
+	[id(35), helpstring("method SetDvRate")] HRESULT SetDvRate(long nRate);
+	[id(36), helpstring("method GetDvRate")] HRESULT GetDvRate(double* dRate);
+	[id(37), helpstring("method GetGraphPath")] HRESULT GetGraphPath(BSTR* strGraphPath);
+	[id(38), helpstring("method IsMute")] HRESULT IsMute(SHORT* bMute);
+	[id(39), helpstring("method GetVideoFps")] HRESULT GetVideoFps(DOUBLE* dFps);
+	[id(40), helpstring("method SnapImage")] HRESULT SnapImage(BSTR bstrImagename, LONG nNewWidth, LONG nNewHeight);
+	[id(41)] HRESULT MP_GetPosition(LONG* nIndex);
+	[id(42)] HRESULT GetCurrentPosition(LONGLONG* pTimeNow);
+	[id(43)] HRESULT GetFaceRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(44)] HRESULT GetFaceWidth(LONG* nWidth);
+	[id(45)] HRESULT GetFaceHeight(LONG* nHeight);
+	[id(46)] HRESULT GetLEyeRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(47)] HRESULT GetREyeRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(48)] HRESULT GetLEyeballRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(49)] HRESULT GetREyeballRect(LONG* left, LONG* top, LONG* right, LONG* bottom);
+	[id(50)] HRESULT GetFaceImg(BYTE* pImage, LONG nSize);
+	[id(51)] HRESULT GetLEyeImg(BYTE* pImage, LONG nSize);
+	[id(52)] HRESULT GetREyeImg(BYTE* pImage, LONG nSize);
+	[id(53)] HRESULT GetLEyeballImg(BYTE* pImage, LONG nSize);
+	[id(54)] HRESULT GetREyeballImg(BYTE* pImage, LONG nSize);
+	[id(55)] HRESULT GetLeadFace(BYTE* pLeadFace);
+	[id(56)] HRESULT GetActivativedValue(DOUBLE* dActivation);
+	[id(57)] HRESULT GetBlinkCount(LONG* nCount);
+	[id(58)] HRESULT GetCurTimeMs(LONG* MilliSec);
+	[id(59)] HRESULT GetCurTime(LONGLONG* NSec);
+	[id(60)] HRESULT ResetCounter(void);
+	[id(61)] HRESULT SetCheck(SHORT nCheck);
+	[id(62)] HRESULT GetCheck(SHORT* nCheck);
+	[id(63)] HRESULT SetFaceRectLineWidth(FLOAT fLineWidth);
+	[id(64)] HRESULT GetFaceRectLineWidth(FLOAT* fLineWidth);
+	[id(65)] HRESULT SetEyeRectLineWidth(FLOAT fLineWidth);
+	[id(66)] HRESULT GetEyeRectLineWidth(FLOAT* fLineWidth);
+};
+[
+	object,
+	uuid(7D8113E6-0421-4622-868B-ED30D811562C),
+	dual,
+	nonextensible,
+	helpstring("IFcsDeckControl Interface"),
+	pointer_default(unique)
+]
+interface IFcsDeckControl : IDispatch {
+	[id(1), helpstring("method Init")] HRESULT Init(LONG* nResult);
+	[id(2), helpstring("method Close")] HRESULT Close(LONG nStatus);
+	[id(3), helpstring("method SetStandBy")] HRESULT SetStandBy(LONG nStatus);  //nStatus = 1 On, nStatus = 0 off
+	[id(4), helpstring("method Play")] HRESULT Play(LONG* nResult, LONG* errCode);
+	[id(5), helpstring("method Stop")] HRESULT Stop(LONG* nResult, LONG* errCode);
+	[id(6), helpstring("method TogglePlayStop")] HRESULT TogglePlayStop(LONG* nResult, LONG* errCode);
+	[id(7), helpstring("method Eject")] HRESULT Eject(LONG* nResult, LONG* errCode);
+	[id(8), helpstring("method GotoTimeCode")] HRESULT GotoTimeCode(BSTR bstrTimeCode, LONG* nResult, LONG* errCode);
+	[id(9), helpstring("method FastForward")] HRESULT FastForward(LONG* nResult, LONG* errCode);
+	[id(10), helpstring("method Rewind")] HRESULT Rewind(LONG* nResult, LONG* errCode);
+	[id(11), helpstring("method StepForward")] HRESULT StepForward(LONG* nResult, LONG* errCode);
+	[id(12), helpstring("method StepBack")] HRESULT StepBack(LONG* nResult, LONG* errCode);
+	[id(13), helpstring("method Jog")] HRESULT Jog(DOUBLE nRate, LONG* nResult, LONG* errCode);
+	[id(14), helpstring("method Shuttle")] HRESULT Shuttle(DOUBLE nRate, LONG* nResult, LONG* errCode);
+	[id(15), helpstring("method GetTimeCode")] HRESULT GetTimeCode(BSTR bstrTimeCode, LONG* nResult, LONG* errCode);
+	[id(16), helpstring("method SetPreroll")] HRESULT SetPreroll(LONG nSecond, LONG* nResult, LONG* errCode);
+	[id(17), helpstring("method GetPreroll")] HRESULT GetPreroll(LONG* nSecond, LONG* nResult, LONG* errCode);
+	[id(18), helpstring("method SetCaptureOffset")] HRESULT SetCaptureOffset(LONG nCaptureOffset);
+	[id(19), helpstring("method GetCaptureOffset")] HRESULT GetCaptureOffset(LONG* nCaptureOffset, LONG* nResult);
+	[id(20), helpstring("method SetExportOffset")] HRESULT SetExportOffset(LONG nExportOffset);
+	[id(21), helpstring("method GetExportOffset")] HRESULT GetExportOffset(LONG* nExportOffset, LONG* nResult);
+	[id(22), helpstring("method GetManualExportOffset")] HRESULT GetManualExportOffset(LONG* nExportOffset, LONG* nResult);
+	[id(23), helpstring("method StartExport")] HRESULT StartExport(BSTR bstrInPoint, BSTR bstrOutPoint, LONG* nResult, LONG* errCode);
+	[id(24), helpstring("method StartCapture")] HRESULT StartCapture(LONG useVITC, BSTR bstrInPoint, BSTR bstrOutPoint, LONG* nResult, LONG* errCode);
+	[id(25), helpstring("method GetDeviceID")] HRESULT GetDeviceID(LONG* nDeviceID, LONG* nResult, LONG* errCode);
+	[id(26), helpstring("method Abort")] HRESULT Abort(LONG* nResult);
+	[id(27), helpstring("method CrashRecordStart")] HRESULT CrashRecordStart(LONG* nResult, LONG* errCode);
+	[id(28), helpstring("method CrashRecordStop")] HRESULT CrashRecordStop(LONG* nResult, LONG* errCode);
+};
+[
+	object,
+	uuid(2E450FE7-FD75-443E-B205-3C9FB5222C69),
+	dual,
+	nonextensible,
+	helpstring("IFcsSerialControl Interface"),
+	pointer_default(unique)
+]
+interface IFcsSerialControl : IDispatch {
+	[id(1), helpstring("method OpenPort")] HRESULT OpenPort(BSTR portName);
+	[id(2), helpstring("method Play")] HRESULT Play(void);
+	[id(3), helpstring("method Stop")] HRESULT Stop(void);
+	[id(4), helpstring("method ClosePort")] HRESULT ClosePort(void);
+	[id(5), helpstring("method Eject")] HRESULT Eject(void);
+};
+[
+	object,
+	uuid(17EF949B-13A3-4128-B13C-2A0DC219271D),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IJbuCapturer : IDispatch {
+	[id(1), helpstring("method SetWindow")] HRESULT SetWindow(LONG hParent);
+	[id(2), helpstring("method Pause")] HRESULT Pause();
+	[id(3), helpstring("method Stop")] HRESULT Stop();
+	[id(4), helpstring("method SetWindowPosition")] HRESULT SetWindowPosition(LONG top, LONG left, LONG Width, LONG Height);
+	[id(5), helpstring("method Free")] HRESULT Free();
+	[id(6), helpstring("method Init")] HRESULT Init();
+	[id(7), helpstring("method Render")] HRESULT Render();
+	[id(8), helpstring("method SetGraphPath")] HRESULT SetGraphPath(BSTR bstrGraphPath);
+	[id(9), helpstring("method SetSinkFile")] HRESULT SetSinkFile(BSTR bstrPathName, BSTR bstrPathName1, LONG nTemplateID, LONG nFileNo);
+	[id(10), helpstring("method GetVideoSize")] HRESULT GetVideoSize(LONG* lpWidth, LONG* lpHeight, LONG* lpARwidth, LONG* lpARHeight);
+	[id(11), helpstring("method UpdateWindow")] HRESULT UpdateWindow(LONG left, LONG top, LONG right, LONG bottom);
+	[id(12), helpstring("method State")] HRESULT State(LONG* nState);
+	[id(13), helpstring("method ChangeWindow")] HRESULT ChangeWindow(LONG hWndHandle);
+	[id(14), helpstring("method Play")] HRESULT Play();
+	[id(15), helpstring("method SnapImage")] HRESULT SnapImage(BSTR ImageName, LONG Width, LONG Height);
+	[id(16), helpstring("method ChangeHWnd")] HRESULT ChangeHWnd(HWND hWnd);
+	[id(17), helpstring("method UpdateVideoWindow")] HRESULT UpdateVideoWindow(const LPRECT prc);
+};
+[
+	uuid(9E5E3D4C-E209-432D-93EB-D63FC5736AEC),
+	version(1.0),
+	helpstring("FcsMedia 1.0 Type Library")
+]
+library FcsMediaLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(BA839D65-700B-4C7B-856F-DC31AA13D689),
+		helpstring("FcsPlayer Class")
+	]
+	coclass FcsPlayer
+	{
+		[default] interface IFcsPlayer;
+	};
+	[
+		uuid(79BBBCBB-9291-4023-B114-68AEB598B8C5),
+		helpstring("ExportManager Class")
+	]
+	coclass ExportManager
+	{
+		[default] interface IExportManager;
+	};
+	[
+		uuid(5E13B842-C644-4881-8147-5610B803CF4A),
+		helpstring("FcsGrabber Class")
+	]
+	coclass FcsGrabber
+	{
+		[default] interface IFcsGrabber;
+	};
+	[
+		uuid(882A89F6-AF61-4278-AF70-109EF9B3754C),
+		helpstring("FcsDVManager Class")
+	]
+	coclass FcsDVManager
+	{
+		[default] interface IFcsDVManager;
+	};
+	[
+		uuid(03276B5B-7E36-43AC-B770-2D6776E34505),
+		helpstring("FcsDeckControl Class")
+	]
+	coclass FcsDeckControl
+	{
+		[default] interface IFcsDeckControl;
+	};
+	[
+		uuid(DABFBC36-1E3C-4261-876F-0371407A1DD5),
+		helpstring("FcsSerialControl Class")
+	]
+	coclass FcsSerialControl
+	{
+		[default] interface IFcsSerialControl;
+	};
+	[
+		uuid(22DC2861-7895-45EB-B9C5-0AE5766AB114)
+	]
+	dispinterface _IJbuCapturerEvents
+	{
+	properties:
+	methods:
+	};
+	[
+		uuid(811DF04E-488E-4818-BA3F-644F78577020)
+	]
+	coclass JbuCapturer
+	{
+		[default] interface IJbuCapturer;
+		[default, source] dispinterface _IJbuCapturerEvents;
+	};
+};

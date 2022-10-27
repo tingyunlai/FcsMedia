@@ -1,0 +1,27 @@
+HKCR
+{
+	FcsMedia.FcsGrabber.1 = s 'FcsGrabber Class'
+	{
+		CLSID = s '{5E13B842-C644-4881-8147-5610B803CF4A}'
+	}
+	FcsMedia.FcsGrabber = s 'FcsGrabber Class'
+	{
+		CLSID = s '{5E13B842-C644-4881-8147-5610B803CF4A}'
+		CurVer = s 'FcsMedia.FcsGrabber.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {5E13B842-C644-4881-8147-5610B803CF4A} = s 'FcsGrabber Class'
+		{
+			ProgID = s 'FcsMedia.FcsGrabber.1'
+			VersionIndependentProgID = s 'FcsMedia.FcsGrabber'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{9E5E3D4C-E209-432D-93EB-D63FC5736AEC}'
+		}
+	}
+}

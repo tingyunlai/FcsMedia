@@ -1,0 +1,27 @@
+HKCR
+{
+	FcsMedia.FcsDVManager.1 = s 'FcsDVManager Class'
+	{
+		CLSID = s '{882A89F6-AF61-4278-AF70-109EF9B3754C}'
+	}
+	FcsMedia.FcsDVManager = s 'FcsDVManager Class'
+	{
+		CLSID = s '{882A89F6-AF61-4278-AF70-109EF9B3754C}'
+		CurVer = s 'FcsMedia.FcsDVManager.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {882A89F6-AF61-4278-AF70-109EF9B3754C} = s 'FcsDVManager Class'
+		{
+			ProgID = s 'FcsMedia.FcsDVManager.1'
+			VersionIndependentProgID = s 'FcsMedia.FcsDVManager'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{9E5E3D4C-E209-432D-93EB-D63FC5736AEC}'
+		}
+	}
+}

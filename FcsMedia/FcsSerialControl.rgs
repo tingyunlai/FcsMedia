@@ -1,0 +1,27 @@
+HKCR
+{
+	FcsMedia.FcsSerialControl.1 = s 'FcsSerialControl Class'
+	{
+		CLSID = s '{DABFBC36-1E3C-4261-876F-0371407A1DD5}'
+	}
+	FcsMedia.FcsSerialControl = s 'FcsSerialControl Class'
+	{
+		CLSID = s '{DABFBC36-1E3C-4261-876F-0371407A1DD5}'
+		CurVer = s 'FcsMedia.FcsSerialControl.1'
+	}
+	NoRemove CLSID
+	{
+		ForceRemove {DABFBC36-1E3C-4261-876F-0371407A1DD5} = s 'FcsSerialControl Class'
+		{
+			ProgID = s 'FcsMedia.FcsSerialControl.1'
+			VersionIndependentProgID = s 'FcsMedia.FcsSerialControl'
+			ForceRemove 'Programmable'
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			val AppID = s '%APPID%'
+			'TypeLib' = s '{9E5E3D4C-E209-432D-93EB-D63FC5736AEC}'
+		}
+	}
+}
